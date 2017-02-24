@@ -11,3 +11,37 @@ As for major achievements, I don't really know. For me a major achievement would
 I've already mentioned the reasons why I find Reedsy interesting in our emails, but in short, creating a tool like this is something I'd like to work on. I just like it and the idea seems really cool. Also one of the things that I liked the most was the fact that it's remote. I've been dying for a remote job, especially based on NodeJS. 
 
 ## Question 2
+So I've never had any class about this in college and never did any work that actually needed operational transforming as I've never worked in any application that had real time data sharing/editing or any other situation where it can be used. Therefore I had to go and read some of this. Eureka. Now I understand the whole processing behind google docs and other real time concurrent systems.
+
+From what I gather, the algorithm is based on cross sending information from the client and server (or multiple clients and using a server as a single source of "truth"). This cross sending, where the client sends its operation to the server, and vice-versa the server sends to the client, is what's called the Operation. The Transformation happens afterwards when the server takes the client's operation and transforms it to work with the result of its own (previous) operation, and then vice-versa in the client side.
+
+In example, if we have the word `REEDSY` and the client and the client inserts `A` on position 1 (`RAEEDSY`) and the server deletes `R` in position `0` (`EEDSY`), the following will happen:
+* The client runs the operation: `ins("A", 1)`, resulting in `RAEEDSY`
+* The server runs the operation: `del("R", 0)`, resulting in `EEDSY`
+* The client receives the operation the server ran (`del("R", 0)`), lets tha `0` stay `0` because its previous operation didn't affect the first char, and gets `del("R", 0)` => `AEEDSY`
+* The server receives the operation the client ran (`ins("A", 1)`), transforms the `1` to `0` because it previously deleted a char, and gets `ins("A", 0)` => `AEEDSY`
+
+Now there's certainly gaps that I don't know how to answer, or how exactly does the client/server do all that math of where it should put the number, but this is the general concept of it, from what I understood at least.
+
+## Question 3
+Once again, this is my first time with document versionning in this state. I did some re-search but couldn't find much on how to architecture it, maybe I didn't search properly. So, I'm going to go on a limb here and attempt to answer it on how I think it should be done.
+
+I see two possible solutions, each with its pros and cons. They are.
+* Saving a new document with an increased version number every time the user clicks save
+* Saving the original first document, and for all future saves only save the portions edited (through operations) with increased version number (Preferred)
+**Note:** I've added a note in the explanation of the second option of a reverse operation system. I think that would be the best.
+
+### First option (Saving new documents every time)
+This is my least preferred option, especially in your scope of Reedsy, as saving huge documents (books) every time would quickly increase the size of databases. And while it would be the fastest way for an user to view different versions (as it would only require a loading of said version), it would make it heavier for the bonus question (3.1), since it would have to scan both documents in its totality.
+
+### Second option (Saving portions)
+If I had to pick, I'd take this option. I believe this is the way GitHub works too. So in this way, each time the user saves, it searches for what has been changed in the document and somehow (which I'm not sure of the best way) it saves those specific changes only. Could be how Operational Transformation is done, by saving operations like `insert("text here", lineNumber, columnNumber)` in an array.
+
+Later on when the user chooses to go to a specific version, it loads the original document (the first save, not the blank document), and runs all operations, in order, from version 0 to the specified version by the user (the one clicked on).
+
+**Note:** Come to think of it, a **reverse** operational system could be better, to reduce load times. In this way, the latest version would always have the full document, and previous versions would be nothing more but an array of reverse operations. 
+
+**Example:** If the user added the word "Hello" to the top of the document and saved it, the latest version would contain the full document included the "Hello", and the previous version would contain an array with the operation to remove the word added, such as `del("Hello", 0, 0)`.
+
+## Question 3.1
+Choosing the second option, either normal or the reverse system I've mentioned, would make developing this functionality a breeze, simply by using the operations saved in the versionning arrays. Working with the exact image and its text settings, one only needed to run the operations from the version to compare with (and if the current and chosen version have different versions in between, run those too), and add css to those operation's results. Like to all a `line-through` text decoration to all "Delete" operations, `underline` to "Insert"s, and so on.
