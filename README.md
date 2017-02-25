@@ -47,3 +47,16 @@ Later on when the user chooses to go to a specific version, it loads the origina
 Choosing the second option, either normal or the reverse system I've mentioned, would make developing this functionality a breeze, simply by using the operations saved in the versionning arrays. 
 
 Using the image provided and its text settings, it would be necessary to run the operations from the version to compare with (and if the current and chosen version have different versions in between, run those too), except they would have to be ran in "Insert" mode rather than their original operation (Delete, Insert, etc), since the goal is to display **all the text** and its changes. And then add css to those operation's results. Like to all a `line-through` text decoration to all "Delete" operations, `underline` to "Insert"s, and so on.
+
+## Question 4
+**Brief paragraph before getting into it:** I was a bit confused by this exercise. Well not exactly confused, but the thing is that one of NodeJS's strengths is it's speed at handling many requests asynchronously, so when you asked to create a Queue what I understood was that you wanted NodeJS to be, well, synchronous and only be able to take one request at any given time. If this was the intended then great, if not, let me know and I'll re-do.
+
+Considering the above, I decided that for every PDF conversion I'd let 10x HTML requests have priority over it. Example:
+* `PDF#1` arrives at queue
+* `HTML#1 to 10` arrive at queue
+* Server converts `HTML#1 to 10` as `PDF#1` gave them priority
+* `HTML#11` arrives at queue before `HTML#10` finished processing
+* Server converts `PDF#1` because it already gave priority to 10x HTML conversions 
+* Server converts `HTML#11`
+
+As for the front-end, as soon as request is created to the API endpoint, the new conversion is added to the list in the table, with its status set to "In Queue". The server will send the results of the request as soon as it leaves from the Queue and enters the processing state, and the front-end will update to "Processing". The server then lets the 
