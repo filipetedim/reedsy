@@ -59,4 +59,6 @@ Considering the above, I decided that for every PDF conversion I'd let 10x HTML 
 * Server converts `PDF#1` because it already gave priority to 10x HTML conversions 
 * Server converts `HTML#11`
 
-As for the front-end, as soon as request is created to the API endpoint, the new conversion is added to the list in the table, with its status set to "In Queue". The server will send the results of the request as soon as it leaves from the Queue and enters the processing state, and the front-end will update to "Processing". The server then lets the 
+***As far as the front-end goes***, as soon as request is sent to the API endpoint, the new conversion is added to the list in the table with its status set to "In Queue". The server will send the results of the request as soon as it leaves from the Queue and enters the processing state, and the front-end will update to "Processing". TODO WEBSOCKET
+
+***In the back-end***, a queue array exists to where the next conversion will push an item and trigger an emitter event (unless the queue is bigger than 1, in which case there's an event chain already running). This emitter event will take care of validating if the current item should give priority or not, and if it doesn't, it will remove this item from the queue, send the results to the front-end labeled as "Processing" and if the queue isn't empty, it will call the emitter event again to continue the chain. TODO WEBSOCKET
