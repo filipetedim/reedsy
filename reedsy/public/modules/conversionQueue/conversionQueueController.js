@@ -26,6 +26,7 @@ conversionQueueController.controller('ConversionQueueController', [
         };
 
         /**
+         * If data has property clear set as true, it means the local queue should be cleared.
          * When receiving data, checks if the id or the created_at properties match any existing item.
          * If it does, updates that item with its new _id and status.
          * Otherwise it creates a new item and pushes (used to sync multiple browsers open).
@@ -34,6 +35,10 @@ conversionQueueController.controller('ConversionQueueController', [
          * @param {Object} data - the socket data received
          */
         var parseSocketData = function (data) {
+            if (data.clear) {
+                return $scope.conversionQueue = [];
+            }
+
             var exists = false;
 
             $scope.conversionQueue.forEach(function (item) {
@@ -100,10 +105,10 @@ conversionQueueController.controller('ConversionQueueController', [
         /**
          * Requests the server to clear all the database.
          * Only works if the processing queue is empty.
+         * The web socket listener will take care of emptying the queue.
          */
         $scope.clearDatabase = function () {
             ConversionQueueService.clearDatabase().then(function () {
-                $scope.conversionQueue = [];
             }, function (err) {
                 if (err.status === 409) {
                     $.iGrowl({

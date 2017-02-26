@@ -49,7 +49,7 @@ const convert = (req, res) => {
             return;
         }
         updateDatabaseAndEmit(queue[0], 'Processing');
-
+        
         setTimeout(() => {
             updateDatabaseAndEmit(queue[0], 'Processed');
 
@@ -132,7 +132,7 @@ const shouldGivePriority = () => {
 
 /**
  * Clears the whole database if the queue is done processing.
- * Kills all the listeners.
+ * Kills all the listeners and emits to clear on multiple websites.
  *
  * @param {Object} req - the request object
  * @param {Object} res - the result object
@@ -148,6 +148,8 @@ const deleteDatabase = (req, res) => {
         }
 
         eventEmitter.removeAllListeners('moveQueue');
+        socketMiddleware.emit('conversion', {clear: true});
+
         res.send({message: 'Alderaan has been destroyed!'});
     });
 };
