@@ -69,6 +69,7 @@ Using the image provided and its text settings, it would be necessary to run the
 2. Run `npm install` and `node server`/`nodemon server`
 3. Open an editor who emulates a server on `html` files, like Atom or WebStorm
 4. Inside the editor, move to `public`, right-click `index.html` and `Run 'index.html`
+5. Since I didn't use Grunt/Gulp to compile scss, the editor (like WebStorm does) might ask you to accept the authorization to access the scss, when loading up the website
 
 ### Guidelines
 Considering the above, I decided that for every PDF conversion I'd let 10x HTML requests have priority over it. Example:
