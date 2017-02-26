@@ -53,12 +53,13 @@ Using the image provided and its text settings, it would be necessary to run the
 
 Considering the above, I decided that for every PDF conversion I'd let 10x HTML requests have priority over it. Example:
 * Queue has existing requests (otherwise `PDF#1` in the next line would just start running, as technically queue is empty when it arrives)
-* `PDF#1` arrives at queue
+* `PDF#1 and #2` arrive at queue
 * `HTML#1 to 10` arrive at queue
 * Server converts `HTML#1 to 10` as `PDF#1` gave them priority
-* `HTML#11` arrives at queue before `HTML#10` finished processing
+* `HTML#11 and #12` arrive at queue before `HTML#10` finished processing
 * Server converts `PDF#1` because it already gave priority to 10x HTML conversions 
-* Server converts `HTML#11`
+* Server converts `HTML#11 and #12` because `PDF#2` didn't give priority to no one yet
+* Server converts `PDF#2`
 
 ***As far as the front-end goes***, as soon as request is sent to the API endpoint, the new conversion is added to the list in the table with its status set to "In Queue". From then on the front-end is just waiting for events through a web socket to change the conversion items statuses.
 
