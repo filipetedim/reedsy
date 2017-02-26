@@ -1,0 +1,12 @@
+/**
+ * Custom CSS
+ */
+.custom-table-header {
+    border: 1px solid #DDD;
+    border-radius: 5px;
+}
+
+.custom-fa-size {
+    font-size: 18px;
+    margin-right: 5px;
+}

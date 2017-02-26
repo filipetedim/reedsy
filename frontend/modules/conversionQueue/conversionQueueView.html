@@ -1,0 +1,40 @@
+<!-- Header -->
+<div class="row pt-35">
+    <div class="col-xs-12 col-sm-6 font-size-26 font-weight">
+        Conversions
+    </div>
+    <div class="col-xs-12 col-sm-6">
+        <div class="btn-group col-xs-12 pr-none" role="group">
+            <button type="button" class="btn btn-default col-xs-6" ng-click="convertItem('PDF')">
+                New PDF Conversion
+            </button>
+            <button type="button" class="btn btn-default col-xs-6" ng-click="convertItem('HTML')">
+                New HTML Conversion
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="row mt-20 p-35">
+    <div class="col-xs-12 p-15 mb-10 custom-table-header">
+        <div class="col-xs-6">Name</div>
+        <div class="col-xs-2">Created At</div>
+        <div class="col-xs-2">Type</div>
+        <div class="col-xs-2">Status</div>
+    </div>
+
+    <div class="col-xs-12 p-15" ng-repeat="conversionObject in conversionQueue track by $index">
+        <div class="col-xs-6">{{conversionObject.name}}</div>
+        <div class="col-xs-2">{{toReadableDate(conversionObject.created_at)}}</div>
+        <div class="col-xs-2">
+            <span class="label" ng-class="conversionObject.type === 'PDF' ? 'label-danger' : 'label-primary'">
+                {{conversionObject.type}}
+            </span>
+        </div>
+        <div class="col-xs-2" ng-class="selectStatusStyling(conversionObject).color">
+            <i class="fa font-size-18 mr-5" ng-class="selectStatusStyling(conversionObject).icon"></i>
+            {{conversionObject.status}}
+        </div>
+    </div>
+</div>
