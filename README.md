@@ -1,5 +1,14 @@
 # Reedsy Node.js application
 
+## Table of contents
+
+* [Question 1](#question-1)
+* [Question 2](#question-2)
+* [Question 3](#question-3)
+* [Question 3.1](#question-3.1)
+* [question-4](#question-4)
+* [question-4.1](#question-4.1)
+
 ## Question 1
 I've introduced myself a bit in the presentation letter and our emails, but I'll repeat some of it here anyway.
 Personally, I'm quite a chilled out guy who likes to put out jokes and clear the mood around. I'm very curious and love being creative and learning new stuff. Not long ago I bought myself a RaspberryPi to make it into a gaming console, and stuck it inside an old PS1 case. Then I went and bought wood to make my own cat tree house, heh. I also have two cats. They're amaaazing. Best cats in the world, best cats. Huge cats. Huuuge. /referenceToEndOfWorld.
@@ -49,7 +58,7 @@ Choosing the second option, either normal or the reverse system I've mentioned, 
 Using the image provided and its text settings, it would be necessary to run the operations from the version to compare with (and if the current and chosen version have different versions in between, run those too), except they would have to be ran in "Insert" mode rather than their original operation (Delete, Insert, etc), since the goal is to display **all the text** and its changes. And then add css to those operation's results. Like to all a `line-through` text decoration to all "Delete" operations, `underline` to "Insert"s, and so on.
 
 ## Question 4
-**Brief paragraph before getting into it:** I was a bit confused by this exercise. Well not exactly confused, but the thing is that one of NodeJS's strengths is it's speed at handling many requests asynchronously, so when you asked to create a Queue what I understood was that you wanted NodeJS to be, well, synchronous and only be able to take one request at any given time. If this was the intended then great, if not, let me know and I'll re-do.
+**Brief paragraph before getting into it:** I was a bit confused by this exercise. Well not exactly confused, but the thing is that one of NodeJS's strengths is its speed at handling many requests asynchronously, so when you asked to create a Queue what I understood was that you wanted NodeJS to be, well, synchronous and only be able to take one request at any given time. If this was the intended then great because it's what I've done, if not, let me know and I'll re-do.
 
 Considering the above, I decided that for every PDF conversion I'd let 10x HTML requests have priority over it. Example:
 * Queue has existing requests (otherwise `PDF#1` in the next line would just start running, as technically queue is empty when it arrives)
