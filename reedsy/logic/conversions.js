@@ -48,9 +48,13 @@ const convert = (req, res) => {
         if (queue.length === 0 || queue[0]._id !== item._id || shouldGivePriority()) {
             return;
         }
+
         updateDatabaseAndEmit(queue[0], 'Processing');
 
+        console.log("PROCESSING " + queue[0].name);
         setTimeout(() => {
+            console.log(" ");
+
             updateDatabaseAndEmit(queue[0], 'Processed');
 
             // Remove the current item (top of the queue)
@@ -149,7 +153,7 @@ const deleteDatabase = (req, res) => {
 
         eventEmitter.removeAllListeners('moveQueue');
         socketMiddleware.emit('conversion', {clear: true});
-        
+
         res.send({message: 'Alderaan has been destroyed!'});
     });
 };
