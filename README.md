@@ -5,9 +5,9 @@
 * [Question 1](#question-1)
 * [Question 2](#question-2)
 * [Question 3](#question-3)
-* [Question 3.1](#question-3.1)
-* [question-4](#question-4)
-* [question-4.1](#question-4.1)
+* [Question 3.1](#question-31)
+* [Question-4](#question-4)
+* [Question-4.1](#question-41)
 
 ## Question 1
 I've introduced myself a bit in the presentation letter and our emails, but I'll repeat some of it here anyway.
@@ -75,3 +75,6 @@ Considering the above, I decided that for every PDF conversion I'd let 10x HTML 
 ***In the back-end***, a queue array exists to where the next conversion will push an item and trigger an emitter event, unless the queue is bigger than 1, in which case there's an event chain already running. This emitter event will take care of validating if the current item should give priority or not, and if it doesn't, it will send a message through the socket alerting that it's now processing it. Once the timeout ends, sends another socket message to let the front-end know it's processed, and removes the item from the queue. If the queue isn't empty, it will call the event emitter event again and go through the chain until there's no more items in the queue.
 
 **Note:** I'm sure some library exists that does exactly what I had to build by hand with the event emitter. I even went into a minor issue by doing it this way (couldn't remove event handlers until all the queue was empty). I'm almost sure `async` does this somehow, but after a while of reading its documentation for `Control Flow` I couldn't really find anything that suited the needs. I was wasting too much time and I knew I could do it with the event emitter, so I just went with it, hope that's OK (Also shows I can build my own controller of incoming requests, rite?).
+
+## Question 4.1
+The real time implementation was done through web sockets, but everything about it was explained in the previous question. The server is constantly sending data through the web sockets to all listeners which then take care of notifying the user with iGrowl (a nice tidy plugin to make my life easier).
