@@ -35,7 +35,6 @@ conversionQueueController.controller('ConversionQueueController', [
          * @param {Object} data - the socket data received
          */
         var parseSocketData = function (data) {
-            console.log(data);
             if (data.clear) {
                 return $scope.conversionQueue = [];
             }
