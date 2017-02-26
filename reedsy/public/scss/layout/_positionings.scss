@@ -1,0 +1,18 @@
+/**
+ * Margins & Padding
+ */
+@each $class-name in $positioning-class-list {
+  $pos: index($positioning-class-list, $class-name);
+
+  // Creates the 'none' classes
+  .#{$class-name}-none {
+    #{nth($positioning-css-list, $pos)}: 0 !important;
+  }
+
+  // Creates numeric margins and padding
+  @for $i from 1 through 10 {
+    .#{$class-name}-#{$i * $spacing-increment} {
+      #{nth($positioning-css-list, $pos)}: #{$i * $spacing-increment}px !important;
+    }
+  }
+}
