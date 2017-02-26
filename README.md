@@ -52,6 +52,7 @@ Using the image provided and its text settings, it would be necessary to run the
 **Brief paragraph before getting into it:** I was a bit confused by this exercise. Well not exactly confused, but the thing is that one of NodeJS's strengths is it's speed at handling many requests asynchronously, so when you asked to create a Queue what I understood was that you wanted NodeJS to be, well, synchronous and only be able to take one request at any given time. If this was the intended then great, if not, let me know and I'll re-do.
 
 Considering the above, I decided that for every PDF conversion I'd let 10x HTML requests have priority over it. Example:
+* Queue has existing requests (otherwise `PDF#1` in the next line would just start running, as technically queue is empty when it arrives)
 * `PDF#1` arrives at queue
 * `HTML#1 to 10` arrive at queue
 * Server converts `HTML#1 to 10` as `PDF#1` gave them priority
