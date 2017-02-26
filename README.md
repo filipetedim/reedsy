@@ -64,6 +64,8 @@ Using the image provided and its text settings, it would be necessary to run the
 ### Brief explanation
 **Short paragraph before getting into it:** I was a bit confused by this exercise. Well not exactly confused, but the thing is that one of NodeJS's strengths is its speed at handling many requests asynchronously, so when you asked to create a Queue what I understood was that you wanted NodeJS to be, well, synchronous and only be able to take one request at any given time. If this was the intended then great because it's what I've done, if not, let me know and I'll re-do.
 
+The only thing I'm sure of, is if this is a great solution for long-term and scalability. There has to be a better way, and NodeJS is great at multi tasking requests, so probably one of the best ways would be to just let all requests come in, but limit the number of workers and just let them work concurrently. When a worker finishes his task, he picks up the next one, and you wouldn't be processing one conversion at a time, but multiple. Then again, I've never done that and I don't know how heavy your conversion system is.
+
 ### Setup
 1. On the terminal, move to the folder where `server.js` is
 2. Run `npm install` and `node server`/`nodemon server`
