@@ -68,7 +68,7 @@ Using the image provided and its text settings, it would be necessary to run the
 1. On the terminal, move to the folder where `server.js` is
 2. Run `npm install` and `node server`/`nodemon server`
 3. Open the project in an editor that emulates a server on `html` files, like Atom or WebStorm
-4. Inside the editor, move to `public`, right-click `index.html` and `Run 'index.html`
+4. Inside the editor, move to `public`, right-click `index.html` and `Run 'index.html`/`Open in Browser`
 5. Since I didn't use Grunt/Gulp to compile scss, the editor (like WebStorm does) might ask you to accept the authorization to access the scss, when loading up the website
 
 ### Guidelines
