@@ -37,8 +37,6 @@ const convert = (req, res) => {
 
     // Push into queue
     queue.push(item);
-
-    // Update the database item amd emit through web socket
     updateDatabaseAndEmit(item, 'In Queue');
 
     // Send the created item back
@@ -49,17 +47,9 @@ const convert = (req, res) => {
         if (queue[0]._id !== item._id || shouldGivePriority()) {
             return;
         }
-
-        // Update the database item amd emit through web socket
         updateDatabaseAndEmit(queue[0], 'Processing');
 
-        console.log("*****************************");
-        console.log("PROCESSING " + queue[0].name);
         setTimeout(() => {
-            console.log("FINISHED PROCESSING " + queue[0].name);
-            console.log(" ");
-
-            // Update the database item and emit through web socket
             updateDatabaseAndEmit(queue[0], 'Processed');
 
             // Remove the current item (top of the queue)
@@ -91,8 +81,7 @@ const validateConversionData = (req, res, next) => {
     if (typeof req.body === 'undefined' || req.body === null) {
         return res.status(400).send({message: 'You missing data brotha!'});
     }
-
-    // Validate if type exists in the list
+    
     if (typeof timeoutValue[req.body.type] === 'undefined') {
         return res.status(400).send({message: 'Where the type at? PDF or HTML only kthxbai!'});
     }
