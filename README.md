@@ -5,12 +5,12 @@
 * [Question 1](#question-1)
 * [Question 2](#question-2)
 * [Question 3](#question-3)
-* [Question 3.1](#question-31)
+  * [Question 3.1](#question-31)
 * [Question 4](#question-4)
   * [Brief explanation](#brief-explanation)
   * [Setup](#setup)
   * [Guidelines](#guidelines)
-* [Question 4.1](#question-41)
+  * [Question 4.1](#question-41)
 
 ## Question 1
 I've introduced myself a bit in the presentation letter and our emails, but I'll repeat some of it here anyway.
